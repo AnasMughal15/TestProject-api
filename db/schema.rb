@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_08_123531) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_08_131935) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -28,6 +28,13 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_08_123531) do
     t.index ["creator_id"], name: "index_bugs_on_creator_id"
     t.index ["project_id"], name: "index_bugs_on_project_id"
     t.index ["title", "project_id"], name: "index_bugs_on_title_and_project_id", unique: true
+  end
+
+  create_table "jwt_blacklists", force: :cascade do |t|
+    t.string "jti"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["jti"], name: "index_jwt_blacklists_on_jti"
   end
 
   create_table "project_users", force: :cascade do |t|

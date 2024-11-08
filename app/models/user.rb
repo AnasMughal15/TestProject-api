@@ -5,4 +5,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   validates :name, presence: true
   validates :user_type, presence: true, inclusion: { in: [ "developer", "manager", "qa" ] }
+
+  # enum user_type: { developer: 0, manager: 1, qa: 2 }
 end

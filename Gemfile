@@ -51,6 +51,9 @@ group :development do
 
   # Highlight the fine-grained location where an error occurred [https://github.com/ruby/error_highlight]
   gem "error_highlight", ">= 0.4.0", platforms: [ :ruby ]
+  gem "devise", "~> 4.9", ">= 4.9.4"
+  gem "cancancan", "~> 3.6", ">= 3.6.1"
+  gem "kaminari", "~> 1.2", ">= 1.2.2"
 end
 
 group :test do

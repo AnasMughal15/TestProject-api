@@ -1,11 +1,12 @@
 class Users::RegistrationsController < Devise::RegistrationsController
+  skip_before_action :authenticate_request, only: [ :create ]
   respond_to :json
 
   def create
     build_resource(sign_up_params)
     resource.save
     if resource.persisted?
-      render json: { message: "User created successfully", user: resource, token: jwt_token(resource) }, status: :created
+      render json: { message: "User created successfully", user: resource, user_type: user.user_type, token: jwt_token(resource) }, status: :created
     else
       render json: { errors: resource.errors.full_messages }, status: :unprocessable_entity
     end
@@ -19,10 +20,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def sign_up_params
-    params.require(:user).permit(:email, :password, :name, :user_type)
+    params.permit(:email, :password, :name, :user_type)
   end
 
   def account_update_params
-    params.require(:user).permit(:email, :password, :name, :user_type)
+    params.permit(:email, :password, :name, :user_type)
   end
 end

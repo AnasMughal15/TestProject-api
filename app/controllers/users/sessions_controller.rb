@@ -1,8 +1,8 @@
 class Users::SessionsController < Devise::SessionsController
+  skip_before_action :authenticate_request, only: [ :create ]
   respond_to :json
 
   def create
-    debugger
     user = User.find_for_database_authentication(email: params[:email])
     # user = User.find_for_database_authentication(email: params[:user][:email])
 

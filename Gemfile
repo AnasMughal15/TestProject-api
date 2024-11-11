@@ -55,6 +55,7 @@ group :development do
   gem "cancancan", "~> 3.6", ">= 3.6.1"
   gem "kaminari", "~> 1.2", ">= 1.2.2"
   gem "devise-jwt"
+  gem "rack-cors", require: "rack/cors"
 end
 
 group :test do

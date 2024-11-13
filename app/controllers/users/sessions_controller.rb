@@ -3,6 +3,7 @@ class Users::SessionsController < Devise::SessionsController
   respond_to :json
 
   def create
+    # debugger
     user = User.find_for_database_authentication(email: params[:email])
     # user = User.find_for_database_authentication(email: params[:user][:email])
 
@@ -22,6 +23,6 @@ class Users::SessionsController < Devise::SessionsController
   private
 
   def jwt_token(user)
-    JWT.encode({ user_id: user.id, user_type: user.user_type, exp: 30.minutes.from_now.to_i }, Rails.application.credentials.secret_key_base)
+    JWT.encode({ user_id: user.id, user_type: user.user_type, jti: user.jti, exp: 30.minutes.from_now.to_i }, Rails.application.credentials.secret_key_base)
   end
 end

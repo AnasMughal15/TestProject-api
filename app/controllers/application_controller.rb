@@ -9,12 +9,14 @@ class ApplicationController < ActionController::Base
   private
 
   def authenticate_request
+    # debugger
     header = request.headers["Authorization"]
     token = header.split(" ").last if header
     decoded = decode_token(token)
 
     if decoded
       @current_user = User.find_by(id: decoded[:user_id])
+      # debugger
     else
       render json: { error: "Unauthorized" }, status: :unauthorized
     end
@@ -23,9 +25,11 @@ class ApplicationController < ActionController::Base
   end
 
   def decode_token(token)
-    decoded = JWT.decode(token, Rails.application.secrets.secret_key_base)[0]
+    # debugger
+    decoded = JWT.decode(token, Rails.application.credentials.secret_key_base)[0]
     HashWithIndifferentAccess.new(decoded)
-  rescue
+  rescue => e
+    Rails.logger.error "JWT Decode Error: #{e.message}"
     nil
   end
 end

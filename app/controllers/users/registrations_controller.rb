@@ -6,7 +6,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     build_resource(sign_up_params)
     resource.save
     if resource.persisted?
-      render json: { message: "User created successfully", user: resource, user_type: user.user_type, token: jwt_token(resource) }, status: :created
+      render json: { message: "User created successfully", user: resource, user_type: resource.user_type, token: jwt_token(resource) }, status: :created
     else
       render json: { errors: resource.errors.full_messages }, status: :unprocessable_entity
     end
@@ -16,7 +16,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def jwt_token(user)
     # Generate JWT token for the user
-    JWT.encode({ user_id: user.id, user_type: user.user_type, exp: 30.minutes.from_now.to_i }, Rails.application.credentials.secret_key_base)
+    JWT.encode({ user_id: user.id, user_type: user.user_type, jti: user.jti, exp: 30.minutes.from_now.to_i }, Rails.application.credentials.secret_key_base)
   end
 
   def sign_up_params

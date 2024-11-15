@@ -9,7 +9,7 @@ class ProjectsController < ApplicationController
     elsif current_user.developer?
       Project.for_developer(current_user.id)
     elsif current_user.qa?
-      roject.for_qa
+      Project.for_qa
     else
       Project.none # Return no projects if user has no valid role
     end
@@ -38,8 +38,7 @@ class ProjectsController < ApplicationController
 
   def update
     @project = Project.find(params[:id])
-    # Only a manager can update their own projects
-    authorize! :manage, @project # Check if the user is allowed to update the project
+    authorize! :manage, @project
 
     if @project.update(project_params)
       render json: { message: "Project updated successfully", project: @project }, status: :ok

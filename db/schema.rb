@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_11_134433) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_13_142627) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "bugs", force: :cascade do |t|
     t.string "title", null: false
     t.text "description"
-    t.string "type", default: "bug", null: false
+    t.string "bug_type", default: "bug", null: false
     t.string "status", default: "new", null: false
     t.bigint "project_id", null: false
     t.bigint "creator_id", null: false

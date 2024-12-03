@@ -6,10 +6,11 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   validates :name, presence: true
   validates :user_type, presence: true, inclusion: { in: [ "developer", "manager", "qa" ] }
+  validates :email, presence: true
 
-  has_many :projects_as_manager, class_name: "Project", foreign_key: "manager_id", dependent: :destroy
+  # has_many :projects_as_manager
   has_many :project_users, dependent: :destroy
-  has_many :projects, through: :project_users
+  has_many :projects, through: :project_users, class_name: "Project", foreign_key: "manager_id", dependent: :destroy
   has_many :bugs, dependent: :destroy
 
 

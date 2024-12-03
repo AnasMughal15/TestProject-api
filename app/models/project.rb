@@ -6,11 +6,23 @@ class Project < ApplicationRecord
 
   validates :name, presence: true
   validates :description, presence: true
+  # validate :manager_must_be_valid
+  # validates :assign_developer
+  
+  # this is for in case we have to send a notfication in term of any commit
+  # after_destroy :thisIsAfterSave
+ 
+
+  def manager_must_be_valid
+    unless manager&.user_type == "manager"
+      errors.add(:manager_id, "must belong to a user with the 'manager' role")
+    end
+  end
 
   def assign_developer(user)
     # Check if the developer is already assigned to another project
     if developers.include?(user)
-      errors.add(:developers, "developer is already assigned to this project")
+      errors.add(:developers, "developer is already assigned to the project")
       false
     else
       self.developers << user
@@ -20,29 +32,24 @@ class Project < ApplicationRecord
   scope :with_manager_and_developers, -> {
     select("projects.*, users.name AS manager_name")
       .joins("JOIN users ON users.id = projects.manager_id")
-      .map do |project|
-        # Get developers working on this project
-        developers = User.joins(:project_users)
-                         .where(project_users: { project_id: project.id, role: "developer" })
-                         .select(:id, :name)
-
-        # Format developers as an array of hashes with id and name
-        developer_list = developers.map { |dev| { id: dev.id, name: dev.name } }
-
-        # Merge additional information into the project JSON response
-        project.as_json.merge(
-          manager_name: project.manager_name,
-          developers: developer_list
-        )
-      end
   }
 
-  # Get developer IDs for each project
   def developer_ids
     project_users.where(role: "developer").pluck(:user_id)
   end
 
-  # Fetch projects for a manager, including developer IDs and manager name
+  def self.filter_by_role(user)
+    if user.manager?
+      for_manager(user.id)
+    elsif user.developer?
+      for_developer(user.id)
+    elsif user.qa?
+      for_qa
+    else
+      none
+    end
+  end
+
   def self.for_manager(manager_id)
     where(manager_id: manager_id).with_manager_and_developers
   end
@@ -57,5 +64,16 @@ class Project < ApplicationRecord
   # Fetch all projects for QA, including developer IDs and manager name
   def self.for_qa
     with_manager_and_developers
+  end
+
+  # Search scope
+  def self.search(term)
+    where("LOWER(projects.name) LIKE :term OR LOWER(projects.description) LIKE :term", term: "#{term.downcase}%")
+  end
+
+  def thisIsAfterSave
+    # debugger
+    newRecord = Project.new(name: "ans", description: "hello", manager_id: 5)
+    newRecord.save
   end
 end

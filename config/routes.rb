@@ -14,14 +14,17 @@ Rails.application.routes.draw do
 
 
   resources :projects
-
   get "developers", to: "projects#available_developers"
   delete "project_users/:project_id/:user_id", to: "project_users#destroy"
+
 
   resources :projects do
     resources :bugs, only: [ :index, :create, :show, :update, :destroy ]
     get "developers", to: "bugs#project_developers", on: :member
   end
+
+  resources :attachments
+  get "attachments/preview/:filename", to: "attachments#preview"
 
   get "up" => "rails/health#show", as: :rails_health_check
 

@@ -19,13 +19,13 @@ default: &default
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   host : localhost
-  username : test1
+  username : anas
   password : 123
 
 
 development:
   <<: *default
-  database: test_project1_development
+  database: test_project
 
   # The specified database role being used to connect to PostgreSQL.
   # To create additional roles in PostgreSQL see `$ createuser --help`.
@@ -81,8 +81,13 @@ test:
 # Read https://guides.rubyonrails.org/configuring.html#configuring-a-database
 # for a full overview on how database connection configuration can be specified.
 #
+# production:
+#   <<: *default
+#   database: 
+#   username: test_project_api
+#   password: <%= ENV["TEST_PROJECT_API_DATABASE_PASSWORD"] %>
 production:
-  <<: *default
-  database: test_project1_production
-  username: test_project_api
-  password: <%= ENV["TEST_PROJECT_API_DATABASE_PASSWORD"] %>
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  url: <%= ENV['postgresql://anas:naLTFZtJrrVqtPte1u9CUkT2ROhREgnm@dpg-cusadp8fnakc73f1pudg-a/bugzilladb'] %>

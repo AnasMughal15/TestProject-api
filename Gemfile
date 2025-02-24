@@ -31,7 +31,10 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 gem "rack-cors", require: "rack/cors"
-
+gem "devise", "~> 4.9", ">= 4.9.4"
+  gem "cancancan", "~> 3.6", ">= 3.6.1"
+  gem "kaminari", "~> 1.2", ">= 1.2.2"
+  gem "devise-jwt"
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
@@ -46,10 +49,10 @@ group :development, :test do
   gem "rubocop-rails-omakase", require: false
   gem "rspec-rails"
   # gem "rack-cors", require: "rack/cors"
-  gem "devise", "~> 4.9", ">= 4.9.4"
-  gem "cancancan", "~> 3.6", ">= 3.6.1"
-  gem "kaminari", "~> 1.2", ">= 1.2.2"
-  gem "devise-jwt"
+  # gem "devise", "~> 4.9", ">= 4.9.4"
+  # gem "cancancan", "~> 3.6", ">= 3.6.1"
+  # gem "kaminari", "~> 1.2", ">= 1.2.2"
+  # gem "devise-jwt"
 end
 
 group :development do

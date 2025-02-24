@@ -90,4 +90,4 @@ production:
   adapter: postgresql
   encoding: unicode
   pool: 5
-  url: <%= ENV['postgresql://anas:naLTFZtJrrVqtPte1u9CUkT2ROhREgnm@dpg-cusadp8fnakc73f1pudg-a/bugzilladb'] %>
+  url: <%= ENV['DATABASE_URL'] %>

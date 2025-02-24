@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     registrations: "users/registrations",
     sessions: "users/sessions"
   }
+  root "projects#index"
 
   devise_scope :user do
     get "signup", to: "users/registrations#new", as: :signup

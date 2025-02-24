@@ -123,7 +123,7 @@ GEM
       concurrent-ruby (~> 1.0)
       logger
       zeitwerk (~> 2.6)
-    error_highlight (0.6.0)
+    error_highlight (0.7.0)
     erubi (1.13.0)
     globalid (1.2.1)
       activesupport (>= 6.1)

@@ -46,7 +46,7 @@ ActiveAdmin.register Project do
     f.inputs do
       f.input :name
       f.input :description
-      f.input :manager, as: :select, collection: User.where(user_type: "manager").map { |u| [u.name, u.id] }
+      f.input :manager, as: :select, collection: User.where(user_type: "manager").map { |u| [ u.name, u.id ] }
     end
     f.actions
   end

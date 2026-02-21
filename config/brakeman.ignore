@@ -1,0 +1,8 @@
+{
+  "ignored_warnings": [
+    {
+      "fingerprint": "85fbbc38f0d482c8c4052acc14e5ca465d51168ec9ea85215da330cae0c3f702",
+      "note": "file_name comes from the database (trusted), not user input. File.basename applied as extra protection."
+    }
+  ]
+}

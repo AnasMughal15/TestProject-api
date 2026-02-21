@@ -8,10 +8,10 @@ module Mutations
     argument :bug_type, String, required: false
     argument :status, String, required: false
     argument :assignee_id, ID, required: false
-    argument :attachments, [String], required: false
+    argument :attachments, [ String ], required: false
 
     field :bug, Types::BugType, null: true
-    field :errors, [String], null: false
+    field :errors, [ String ], null: false
 
     def resolve(id:, title: nil, description: nil, bug_type: nil, status: nil, assignee_id: nil, attachments: [])
       raise GraphQL::ExecutionError, "Unauthorized" unless context[:current_user]

@@ -1,4 +1,16 @@
+require "sidekiq/web"
+
 Rails.application.routes.draw do
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
+
+  authenticate :admin_user do
+    mount Sidekiq::Web => "/admin/sidekiq"
+  end
+  if Rails.env.development?
+    mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql"
+  end
+  post "/graphql", to: "graphql#execute"
   devise_for :users, controllers: {
     registrations: "users/registrations",
     sessions: "users/sessions"

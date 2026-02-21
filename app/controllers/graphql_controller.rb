@@ -27,8 +27,6 @@ class GraphqlController < ActionController::API
   rescue
     nil
   end
-Current session
-
 
   def prepare_variables(variables_param)
     case variables_param

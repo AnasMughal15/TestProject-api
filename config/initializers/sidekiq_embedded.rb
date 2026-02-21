@@ -8,7 +8,7 @@ if Rails.env.production? && defined?(Puma)
   Thread.new do
     require "sidekiq/cli"
     cli = Sidekiq::CLI.instance
-    cli.parse(["-C", "config/sidekiq.yml"])
+    cli.parse([ "-C", "config/sidekiq.yml" ])
     cli.run
   end
 end

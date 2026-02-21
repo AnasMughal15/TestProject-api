@@ -33,16 +33,5 @@ plugin :tmp_restart
 # In other environments, only set the PID file if requested.
 pidfile ENV["PIDFILE"] if ENV["PIDFILE"]
 
-# Run Sidekiq inside the Puma process in production (no separate worker service needed).
-# Trade-off: saves cost but shares memory with Puma. Fine for portfolio/low-traffic apps.
-# To revert to a separate worker: comment this block and re-enable the worker in render.yaml.
-on_starting do
-  if ENV["RAILS_ENV"] == "production"
-    Thread.new do
-      require "sidekiq/cli"
-      cli = Sidekiq::CLI.instance
-      cli.parse([ "-C", "config/sidekiq.yml" ])
-      cli.run
-    end
-  end
-end
+# Sidekiq is started inside the Rails process via config/initializers/sidekiq_embedded.rb
+# (moved out of puma.rb because on_starting is not a valid Puma DSL method)

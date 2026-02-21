@@ -31,6 +31,10 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 gem "rack-cors", require: "rack/cors"
+gem "graphql"
+gem "activeadmin"
+gem "sassc-rails"
+gem "sidekiq"
 gem "devise", "~> 4.9", ">= 4.9.4"
   gem "cancancan", "~> 3.6", ">= 3.6.1"
   gem "kaminari", "~> 1.2", ">= 1.2.2"
@@ -70,3 +74,4 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+gem "graphiql-rails", group: :development

@@ -8,6 +8,15 @@ Bundler.require(*Rails.groups)
 
 module TestProjectApi
   class Application < Rails::Application
+    config.active_record.query_log_tags_enabled = true
+    config.active_record.query_log_tags = [
+      # Rails query log tags:
+      :application, :controller, :action, :job,
+      # GraphQL-Ruby query log tags:
+      current_graphql_operation: -> { GraphQL::Current.operation_name },
+      current_graphql_field: -> { GraphQL::Current.field&.path },
+      current_dataloader_source: -> { GraphQL::Current.dataloader_source_class },
+    ]
     config.eager_load = true
 
     # Initialize configuration defaults for originally generated Rails version.
@@ -25,5 +34,7 @@ module TestProjectApi
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+    config.autoload_paths << Rails.root.join("app/middlewares")
+    config.eager_load_paths << Rails.root.join("app/middlewares")
   end
 end

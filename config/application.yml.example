@@ -1,0 +1,28 @@
+# config/application.yml.example
+# Copy this file to config/application.yml and fill in your values.
+# application.yml is gitignored — never commit real credentials.
+
+# Shared across all environments
+RAILS_MAX_THREADS: "5"
+
+development:
+  DB_HOST: "localhost"
+  DB_USERNAME: ""
+  DB_PASSWORD: ""
+  DB_NAME: ""
+  REDIS_URL: "redis://localhost:6379/0"
+
+test:
+  DB_HOST: "localhost"
+  DB_USERNAME: ""
+  DB_PASSWORD: ""
+  DB_NAME: ""
+  REDIS_URL: "redis://localhost:6379/0"
+
+production:
+  DB_HOST: ""
+  DB_USERNAME: ""
+  DB_PASSWORD: ""
+  DB_NAME: ""
+  DATABASE_URL: ""
+  REDIS_URL: ""

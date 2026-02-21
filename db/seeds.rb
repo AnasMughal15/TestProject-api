@@ -7,4 +7,10 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
-AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
+admin_email    = ENV.fetch("ADMIN_EMAIL", "admin@example.com")
+admin_password = ENV.fetch("ADMIN_PASSWORD", "password")
+
+AdminUser.find_or_create_by!(email: admin_email) do |admin|
+  admin.password              = admin_password
+  admin.password_confirmation = admin_password
+end

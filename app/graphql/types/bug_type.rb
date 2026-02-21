@@ -10,6 +10,6 @@ module Types
     field :project_id, ID, null: false
     field :creator, Types::UserType, null: false
     field :assignee, Types::UserType, null: true
-    field :attachments, [Types::AttachmentType], null: false
+    field :attachments, [ Types::AttachmentType ], null: false
   end
 end

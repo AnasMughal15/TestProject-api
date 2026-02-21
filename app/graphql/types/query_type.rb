@@ -10,8 +10,8 @@ module Types
       context.schema.object_from_id(id, context)
     end
 
-    field :nodes, [Types::NodeType, null: true], null: true, description: "Fetches a list of objects given a list of IDs." do
-      argument :ids, [ID], required: true, description: "IDs of the objects."
+    field :nodes, [ Types::NodeType, null: true ], null: true, description: "Fetches a list of objects given a list of IDs." do
+      argument :ids, [ ID ], required: true, description: "IDs of the objects."
     end
 
     def nodes(ids:)
@@ -19,7 +19,7 @@ module Types
     end
 
     # List projects (role-filtered, with optional search and pagination)
-    field :projects, [Types::ProjectType], null: false do
+    field :projects, [ Types::ProjectType ], null: false do
       argument :search, String, required: false
       argument :page, Integer, required: false
       argument :per_page, Integer, required: false
@@ -47,7 +47,7 @@ module Types
     end
 
     # List bugs for a project (with optional search and pagination)
-    field :bugs, [Types::BugType], null: false do
+    field :bugs, [ Types::BugType ], null: false do
       argument :project_id, ID, required: true
       argument :search, String, required: false
       argument :page, Integer, required: false
@@ -85,7 +85,7 @@ module Types
     end
 
     # Get developers not assigned to any project (managers only)
-    field :available_developers, [Types::UserType], null: false
+    field :available_developers, [ Types::UserType ], null: false
 
     def available_developers
       raise GraphQL::ExecutionError, "Unauthorized" unless context[:current_user]

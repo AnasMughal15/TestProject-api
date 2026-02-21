@@ -6,7 +6,7 @@ module Mutations
     argument :user_id, ID, required: true
 
     field :success, Boolean, null: false
-    field :errors, [String], null: false
+    field :errors, [ String ], null: false
 
     def resolve(project_id:, user_id:)
       raise GraphQL::ExecutionError, "Unauthorized" unless context[:current_user]

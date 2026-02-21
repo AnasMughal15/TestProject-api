@@ -6,7 +6,7 @@ module Types
     field :name, String, null: false
     field :description, String, null: true
     field :manager, Types::UserType, null: false
-    field :developers, [Types::UserType], null: false
-    field :bugs, [Types::BugType], null: false
+    field :developers, [ Types::UserType ], null: false
+    field :bugs, [ Types::BugType ], null: false
   end
 end

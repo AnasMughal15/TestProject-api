@@ -47,7 +47,7 @@ ActiveAdmin.register Bug do
       f.input :description
       f.input :bug_type, as: :select, collection: %w[bug feature]
       f.input :status, as: :select, collection: %w[new started resolved completed]
-      f.input :assignee, as: :select, collection: User.where(user_type: "developer").map { |u| [u.name, u.id] }
+      f.input :assignee, as: :select, collection: User.where(user_type: "developer").map { |u| [ u.name, u.id ] }
     end
     f.actions
   end

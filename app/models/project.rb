@@ -8,10 +8,10 @@ class Project < ApplicationRecord
   validates :description, presence: true
   # validate :manager_must_be_valid
   # validates :assign_developer
-  
+
   # this is for in case we have to send a notfication in term of any commit
   # after_destroy :thisIsAfterSave
- 
+
 
   def manager_must_be_valid
     unless manager&.user_type == "manager"

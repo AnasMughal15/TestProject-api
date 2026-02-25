@@ -4,6 +4,7 @@
 
 # Shared across all environments
 RAILS_MAX_THREADS: "5"
+JWT_SECRET: "your-secret-key-here"  # must match what devise-jwt uses to sign tokens
 
 development:
   DB_HOST: "localhost"

@@ -5,7 +5,6 @@ class Ability
     user ||= User.new
 
     if user.manager?
-      # debugger
       can :manage, Project, manager_id: user.id
       can :assign_developer, Project
       can :read, Bug

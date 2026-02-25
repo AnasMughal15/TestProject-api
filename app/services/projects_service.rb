@@ -1,22 +1,13 @@
 class ProjectsService < ProjectsController
-  def self.fetch_projects(user, page, per_page, offset, search_term)
-    project_relation = Project.filter_by_role(user).order(name: :asc)
+  def self.fetch_projects(user, params)
+    base_relation = Project.filter_by_role(user).order(name: :asc)
+    collection    = ProjectCollection.new(base_relation, params)
 
-    # project_relation = project_relation.search(search_term) if search_term.present?+
-    project_relation = project_relation.search(search_term) if search_term.present?
-    paginated_projects = project_relation.limit(page*per_page).offset(offset)
-    projects =paginated_projects.map do |project|
-      project.as_json.merge(developers: project.developers)
+    projects = collection.records.map do |project|
+      project.as_json.merge(developers: project.developers, qas: project.qa)
     end
 
-    {
-      projects: projects,
-      pagination: {
-        total_projects: project_relation.size,
-        total_pages: (project_relation.size/per_page) + 1,
-        current_page: page
-      }
-    }
+    { projects: projects, pagination: collection.pagination }
   end
 
   def self.availableDevelopers

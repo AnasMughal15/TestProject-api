@@ -1,8 +1,11 @@
 class Project < ApplicationRecord
   belongs_to :manager, class_name: "User", foreign_key: "manager_id"
   has_many :project_users, dependent: :destroy
-  has_many :developers, through: :project_users, source: :user
+  has_many :developers, -> { where(user_type: "developer") }, through: :project_users, source: :user
+  has_many :qa, -> { where(user_type: "qa") }, through: :project_users, source: :user
   has_many :bugs, dependent: :destroy
+
+  enum :status, { active: 0, inactive: 1, onhold: 2, completed: 3 }
 
   validates :name, presence: true
   validates :description, presence: true
@@ -72,7 +75,6 @@ class Project < ApplicationRecord
   end
 
   def thisIsAfterSave
-    # debugger
     newRecord = Project.new(name: "ans", description: "hello", manager_id: 5)
     newRecord.save
   end

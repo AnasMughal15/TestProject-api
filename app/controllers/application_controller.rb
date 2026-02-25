@@ -26,7 +26,8 @@ class ApplicationController < ActionController::Base
   end
 
   def decode_token(token)
-    decoded = JWT.decode(token, Rails.application.credentials.secret_key_base)[0]
+    secret = ENV["JWT_SECRET"] || Rails.application.credentials[:jwt_secret]
+    decoded = JWT.decode(token, secret)[0]
     HashWithIndifferentAccess.new(decoded)
   rescue => e
     Rails.logger.error "JWT Decode Error: #{e.message}"

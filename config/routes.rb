@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   end
 
 
+  get "projects/statuses", to: "projects#statuses"
   resources :projects
   get "developers", to: "projects#available_developers"
   delete "project_users/:project_id/:user_id", to: "project_users#destroy"
@@ -33,6 +34,7 @@ Rails.application.routes.draw do
   resources :projects do
     resources :bugs, only: [ :index, :create, :show, :update, :destroy ]
     get "developers", to: "bugs#project_developers", on: :member
+    get "members", on: :member
   end
 
   resources :attachments

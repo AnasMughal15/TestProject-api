@@ -22,9 +22,10 @@ module Mutations
     private
 
     def jwt_token(user)
+      secret = ENV["JWT_SECRET"] || Rails.application.credentials[:jwt_secret]
       JWT.encode(
         { user_id: user.id, user_type: user.user_type, jti: user.jti, exp: 30.minutes.from_now.to_i },
-        Rails.application.credentials.secret_key_base
+        secret
       )
     end
   end

@@ -22,7 +22,8 @@ class GraphqlController < ActionController::API
     token = header&.split(" ")&.last
     return nil unless token
 
-    decoded = JWT.decode(token, Rails.application.credentials.secret_key_base)[0]
+    secret = ENV["JWT_SECRET"] || Rails.application.credentials[:jwt_secret]
+    decoded = JWT.decode(token, secret)[0]
     User.find_by(id: decoded["user_id"])
   rescue
     nil
